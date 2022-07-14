@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>Inventario</title>
+    {% include "comun/estilos.html"%}
+    {% load bootstrap5 %}
+    <link rel="stylesheet" href={% static 'app/css/inventario.css' %} type="text/css">
+   
+</head>
+
+<body class="bg-white" >
+    <!-- Sidenav -->
+    {% include 'comun/nav.html' %}
+    <!-- Main content -->
+    <div class="main-content bg-white" id="panel">
+        <!-- Topnav -->
+        {% include 'comun/navbar.html' %}
+
+        <div class="header pb-4 border-top">
+            <div class="container-fluid">
+                <div class="header-body">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-10 offset-md-1">
+              <div class="card">
+                <div class="card-header" style="background-color:#110273;">
+                  <div class="row">     
+                    <div class="col-6">
+                      <h3 style="color:white">Catalogo de Accesorios - Materiales - Equipos</h3>
+                    </div>
+                    <div class="col-6">
+                      {% if perms.app.add_producto %}
+                      <a class="btn btn-sm float-right" style="background-color:#F20505; color:white;" href="{% url 'app:agregar_producto' %}">Agregar Producto</a>
+                     {% endif %}
+                    </div>
+                  </div>
+              </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-5 col-sm-5"></div>
+                    <div class="col-7 col-sm-7">
+                      
+                    </div>
+                    
+                  </div>
+                  <div class="container">
+                    <div class="row mt-2">
+                      <div class="col-12">
+                        <div class="table-responsive">
+                          <table cellspacing="0" id="tabla" class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th >Clave</th>
+                                <th >Categoria</th>
+                                <th>Descripción</th>
+                                <th>Proveedor</th>
+                                <th >Unidad</th>
+                                <th>Disponible</th>
+                                <th >Mínimo</th>
+                                <th>Opciones</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for p in productos %}
+                              <tr>
+                                <td>{{p.clave}}</td>
+                                              
+                                             
+                                              <td>
+                                                  {% if p.categoria == '1' %}
+                                                  Equipo
+                                                  {% elif p.categoria == '2' %}
+                                                  Mueble
+                                                  {% elif p.categoria == '3' %}
+                                                  Accesorio
+                                                  {% elif p.categoria == '4' %}
+                                                  Herreria
+                                                  {% elif p.categoria == '5' %}
+                                                  Canceleria
+                                                  {% elif p.categoria == '6' %}
+                                                  Carpinteria
+                                                  {% elif p.categoria == '7' %}
+                                                  Acabado
+                                                  {% endif %}
+                                              </td>
+                                              <td><span>{{p.descripcion}}</span></td>
+                                              <td>{{p.proveedor}}</td>
+                                              <td>
+                                                  {% if p.unidad == '1' %}
+                                                  Pieza
+                                                  {% elif p.unidad == '2' %}
+                                                  Cubeta
+                                                  {% elif p.unidad == '3' %}
+                                                  Galón
+                                                  {% elif p.unidad == '4' %}
+                                                  Bulto
+                                                  {% elif p.unidad == '5' %}
+                                                  m³
+                                                  {% elif p.unidad == '6' %}
+                                                  Kg
+                                                  {% elif p.unidad == '7' %}
+                                                  Tonelada
+                                                  {% elif p.unidad == '8' %}
+                                                  Milla
+                                                  {% elif p.unidad == '9' %}
+                                                  Litro
+                                                  {% elif p.unidad == '10' %}
+                                                  Juego
+                                                  {% elif p.unidad == '11' %}
+                                                  Lote
+                                                  {% elif p.unidad == '12' %}
+                                                  m²
+                                                  {% endif %}
+                                              </td>
+                                              <td>
+                                                  {% if p.disp <= p.minimo %}
+                                                  <span class="minimo"><strong>{{p.disp}}</strong></span>
+                                                  {% else %}
+                                                  <span class="normal">{{p.disp}}</span>
+                                                  {% endif %}
+                                              </td>
+                                              
+                                            
+                                              
+                                              <td>{{p.minimo}}</td>
+                                              <td>
+                                                {% if perms.app.change_producto %}
+                                                <a class="btn btn-sm" style="background-color:#110273; color:white" href="{% url 'app:modificar_producto' p.id %}">Modificar</a>
+                                                <a class="btn btn-sm" style="background-color:#F20505; color:white" href="#" onclick="eliminarProducto({{p.id}})">Eliminar</a>
+                                                <a class="btn btn-sm" style="background-color:#34495E; color:white" href="{% url 'app:agregar_a_bodega' p.id %}">Agregar a bodega</a>
+                                                {% endif %}
+                                              </td>
+                              </tr>
+                              {% endfor %}
+                             
+                            </tbody>
+                          </table>
+                          <hr>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                </div>
+              </div>
+            </div>
+        </div>
+
+        {% include 'comun/script.html' %}
+   
+</body>
+<script type="text/javascript" src= {% static 'app/js/simple_numbers_no_ellipses.js'%}></script>
+<script src={% static "app/js/paginator.js" %}></script>
+</html>
