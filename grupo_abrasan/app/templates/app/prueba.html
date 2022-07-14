@@ -35,7 +35,7 @@
               <div class="col-12 col-md-10 offset-md-1">
 
                 <div style="width: 100%; height: 20em; margin-top: 2em;">
-                  <canvas id="horizontalBarChartCanvas"></canvas>
+                  <canvas style="height:45em" id="horizontalBarChartCanvas"></canvas>
               </div>
               <script>
                 
@@ -95,11 +95,12 @@
                         yAxes: [{
                           id: "y-axis-density",
                           ticks:{
+                            padding:10,
                             autoSkip:false,
                             min:0,
                             stepSize:1,
                             autoSkip:false,
-                            beginAtZero:true
+                            beginAtZero:true,
                             
                           }
                           
