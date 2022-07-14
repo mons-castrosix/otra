@@ -91,7 +91,7 @@
                               <td>
                                 {% if perms.app.change_obra %}
                                 <a class="btn btn-sm" style="background-color:#110273; color:white" href="{% url 'app:modificar_obra' o.id %}" >Modificar</a>
-                                <a class="btn btn-sm" style="background-color:#F20505; color:white" onclick="eliminarProducto({{o.id}})">Eliminar</a>
+                                <a class="btn btn-sm" style="background-color:#F20505; color:white" onclick="eliminarObra({{o.id}})">Eliminar</a>
                                 {% endif %}
                               </td>   
                             </tr>

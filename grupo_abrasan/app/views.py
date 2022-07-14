@@ -569,7 +569,7 @@ def solicitud(request,id):
 def solicitudes(request):
     #productos=BodegaProductos.objects.select_related('bodega','producto').filter(bodega=id).values('producto_id__id','producto_id__clave','producto_id__descripcion','producto_id__unidad','cantidad','minimo','bodega_id','producto_id')
     #bodega=Bodega.objects.select_related('obra').get(id=id) 
-    solicitud=Solicitud.objects.all().values('solicitud').annotate(total=Count('solicitud')).order_by('solicitud','total')
+    solicitud=Solicitud.objects.all().select_related('obra').values('solicitud','obra__nombre').annotate(total=Count('solicitud')).order_by('solicitud','total')
     data={
         'solicitud':solicitud,
     }
@@ -640,8 +640,7 @@ def modificar_compra(request,id):
     solicitudes=Solicitud.objects.select_related('bodegaproducto','compra').values('bodegaproducto_id','solicitud','cantidad','descripcion','bodegaproducto_id__cantidad','compra','id').order_by('solicitud').filter(id=id)
     print(solicitudes)
     
-    s=Recepcion.objects.select_related('solicitud').get(id=id).solicitud
-    x=s.solicitud
+   
     data={
         'form':CompraForm(instance=compra),
         'solicitudes':solicitudes
@@ -657,7 +656,7 @@ def modificar_compra(request,id):
 
 @permission_required('app.view_recepcion')
 def recepcion_bodega(request):
-    solicitud=Solicitud.objects.all().values('solicitud','obra_id').annotate(total=Count('solicitud')).order_by('solicitud','total')
+    solicitud=Solicitud.objects.all().select_related('obra').values('solicitud','obra_id','obra__nombre').annotate(total=Count('solicitud')).order_by('solicitud','total')
     
     data={
         'solicitud':solicitud

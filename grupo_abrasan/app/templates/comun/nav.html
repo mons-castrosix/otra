@@ -84,15 +84,15 @@
 
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'app:logout' %}" >
-                            <i class="fa-solid fa-arrow-right-from-bracket text-warning"></i>
-                            <span class="nav-link-text text-white">Cerrar Sesión</span>
+                        <a class="nav-link" href="{% url 'app:contra' %}" >
+                            <i class="fa-solid fa-key text-purple"></i>
+                            <span class="nav-link-text text-white">Cambiar contraseña</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'app:contra' %}" >
-                            <i class="fa-solid fa-key text-white"></i>
-                            <span class="nav-link-text text-white">Cambiar contraseña</span>
+                        <a class="nav-link" href="{% url 'app:logout' %}" >
+                            <i class="fa-solid fa-arrow-right-from-bracket text-warning"></i>
+                            <span class="nav-link-text text-white">Cerrar Sesión</span>
                         </a>
                     </li>
                     {% else %}

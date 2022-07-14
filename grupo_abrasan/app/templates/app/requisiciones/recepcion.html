@@ -58,6 +58,7 @@
                           <thead>
                             <tr>
                               <th >Solicitud</th>
+                              <th>Obra</th>
                               <th>Productos</th>
                               <th>Opciones</th>
                             </tr>
@@ -66,6 +67,7 @@
                             {% for s in solicitud %}
                             <tr>
                               <td><strong>{{s.solicitud}}</strong></td>
+                              <td>{{s.obra__nombre}}</td>
                               <td>{{s.total}}</td>
                               <td>
                                 {% if perms.app.change_recepcion %}

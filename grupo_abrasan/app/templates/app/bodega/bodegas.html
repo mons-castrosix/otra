@@ -78,7 +78,7 @@
                                 <a class="btn btn-sm" style="background-color:#110273; color:white" href="{% url 'app:modificar_bodega' b.id %}" >Modificar</a>
                                 {% endif %}
                                 {% if perms.app.delete_bodega %}
-                                <a class="btn btn-sm" style="background-color:#F20205; color:white" onclick="eliminarProducto({{b.id}})">Eliminar</a>
+                                <a class="btn btn-sm" style="background-color:#F20205; color:white" onclick="eliminarBodega({{b.id}})">Eliminar</a>
                                {% endif %}
                                {% if perms.app.view_bodega %}
                                 <a class="btn btn-sm" style="background-color:#34495E; color:white" href="{% url 'app:listar_productobodega' b.id %}">Ver inventario</a>
