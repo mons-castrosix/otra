@@ -1,6 +1,7 @@
 from dataclasses import fields
 from tkinter import Widget
 from django import forms
+from pkg_resources import require
 from .models import *
 
 from django.contrib.auth.forms import UserCreationForm
@@ -33,11 +34,10 @@ class ProductoForm(forms.ModelForm):
         
         
         widgets={
-            'clave':forms.TextInput(attrs={'class':'form-control','placeholder':'Clave del producto','id':'clave','name':'clave','for':'clave'}),
-            'categoria':forms.Select(attrs={'class':'form-control','id':'categoria','placeholder':'Categoria','name':'categoria','for':'categoria'}),
-            'descripcion':forms.TextInput(attrs={'class':'form-control','id':'descripcion','placeholder':'Descripción','name':'descripcion','for':'descripcion'}),
-            'proveedor':forms.TextInput(attrs={'class':'form-control','id':'proveedor','name':'proveedor','for':'proveedor','placeholder':'Proveedor'}),
-            'unidad':forms.Select(attrs={'class':'form-control','id':'unidad','name':'unidad','for':'unidad','placeholder':'Unidad'}),
+            'clave':forms.TextInput(attrs={'class':'form-control','id':'categoria','placeholder':'Categoria','name':'categoria','for':'categoria'}),
+            'descripcion':forms.TextInput(attrs={'class':'form-control','id':'descripcion','placeholder':'Descripción','name':'descripcion','for':'descripcion','required':True}),
+            'proveedor':forms.TextInput(attrs={'class':'form-control','id':'proveedor','name':'proveedor','for':'proveedor','placeholder':'Proveedor','required':True}),
+            'unidad':forms.Select(attrs={'class':'form-control','id':'unidad','name':'unidad','for':'unidad','placeholder':'Unidad','required':True}),
             'disp':forms.TextInput(attrs={'class':'form-control','id':'disp','name':'disp','for':'disp'}),
             'minimo':forms.TextInput(attrs={'class':'form-control','id':'minimo','name':'minimo','for':'minimo'})
             
@@ -56,9 +56,9 @@ class BodegaForm(forms.ModelForm):
                
             }
             widgets={
-                'nombre':forms.TextInput(attrs={'class':'form-control','placeholder':'Nombre bodega','id':'bodega','name':'bodega','for':'nombre'}),
-                'ubicacion':forms.TextInput(attrs={'class':'form-control','id':'ubicacion','for':'ubicacion','name':'ubicacion'}),
-                'encargado':forms.TextInput(attrs={'class':'form-control','id':'encargado','name':'encargado','for':'encargado'}),
+                'nombre':forms.TextInput(attrs={'class':'form-control','placeholder':'Nombre bodega','id':'bodega','name':'bodega','for':'nombre','required':True}),
+                'ubicacion':forms.TextInput(attrs={'class':'form-control','id':'ubicacion','for':'ubicacion','name':'ubicacion','required':True}),
+                'encargado':forms.TextInput(attrs={'class':'form-control','id':'encargado','name':'encargado','for':'encargado','required':True}),
                 
                 
                 
@@ -75,10 +75,10 @@ class ObraForm(forms.ModelForm):
                 'total_villas':'Total Villas'
             }
             widgets={
-                'nombre':forms.TextInput(attrs={'class':'form-control','placeholder':'Nombre Obra','id':'obra','name':'obra','for':'obra'}),
-                'ubicacion':forms.TextInput(attrs={'class':'form-control','id':'ubicacion','for':'ubicacion','name':'ubicacion'}),
-                'total_villas':forms.TextInput(attrs={'class':'form-control','id':'total','name':'total','for':'total'}),
-                'status':forms.Select(attrs={'class':'form-control','id':'total','name':'total','for':'total'})
+                'nombre':forms.TextInput(attrs={'class':'form-control','placeholder':'Nombre Obra','id':'obra','name':'obra','for':'obra','required':True}),
+                'ubicacion':forms.TextInput(attrs={'class':'form-control','id':'ubicacion','for':'ubicacion','name':'ubicacion','required':True}),
+                'total_villas':forms.TextInput(attrs={'class':'form-control','id':'total','name':'total','for':'total','required':True}),
+                'status':forms.Select(attrs={'class':'form-control','id':'total','name':'total','for':'total','required':True})
                 
                 
                 
@@ -95,9 +95,9 @@ class BodegaProducto(forms.ModelForm):
                 
             }
             widgets={
-                'cantidad':forms.TextInput(attrs={'class':'form-control','id':'cantidad','name':'cantidad','for':'cantidad'}),
-                'minimo':forms.TextInput(attrs={'class':'form-control','id':'minimo','name':'minimo','for':'minimo'}),
-                'ubicacion':forms.TextInput(attrs={'class':'form-control','placeholder':'Ubicacion','id':'ubicacion','for':'ubicacion','name':'ubicacion'}),
+                'cantidad':forms.TextInput(attrs={'class':'form-control','id':'cantidad','name':'cantidad','for':'cantidad','required':True}),
+                'minimo':forms.TextInput(attrs={'class':'form-control','id':'minimo','name':'minimo','for':'minimo','required':True}),
+                'ubicacion':forms.TextInput(attrs={'class':'form-control','placeholder':'Ubicacion','id':'ubicacion','for':'ubicacion','name':'ubicacion','required':True}),
                 
                 
                 
@@ -114,7 +114,7 @@ class VillaForm(forms.ModelForm):
                 
             }
             widgets={
-                'identificador':forms.TextInput(attrs={'class':'form-control','id':'identificador','name':'indentificador','for':'identificador'}),
+                'identificador':forms.TextInput(attrs={'class':'form-control','id':'identificador','name':'indentificador','for':'identificador','required':True}),
                 
                 
                 
@@ -140,7 +140,7 @@ class CompraForm(forms.ModelForm):
                 'compra':'compra',
             }
         widgets={
-                'compra':forms.TextInput(attrs={'class':'form-control','id':'compra','name':'compra','for':'compra'}),
+                'compra':forms.TextInput(attrs={'class':'form-control','id':'compra','name':'compra','for':'compra','required':True}),
                 
                 
         }
@@ -157,8 +157,8 @@ class RecepcionForm(forms.ModelForm):
                 
             }
         widgets={
-                'llegada':forms.TextInput(attrs={'class':'form-control','id':'llegada','name':'llegada','for':'llegada'}),
-                'pendiente':forms.TextInput(attrs={'class':'form-control','id':'pendiente','name':'pendiente','for':'pendiente'}),
+                'llegada':forms.TextInput(attrs={'class':'form-control','id':'llegada','name':'llegada','for':'llegada','required':True}),
+                'pendiente':forms.TextInput(attrs={'class':'form-control','id':'pendiente','name':'pendiente','for':'pendiente','required':True}),
                 'utilizado':forms.TextInput(attrs={'class':'form-control','id':'utilizado','name':'utilizado','for':'utilizado'}),
                 'saldo':forms.TextInput(attrs={'class':'form-control','id':'saldo','name':'saldo','for':'saldo'}),
                 
