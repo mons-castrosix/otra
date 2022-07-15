@@ -70,7 +70,7 @@
                                     <tr>
                                         <td>{{s.id}}</td>
                                         <td>{{s.descripcion}}</td>
-                                        <td>{{s.bodegaproducto_id__cantidad}}</td>
+                                        <td> <strong>{{s.bodegaproducto_id__cantidad}}</strong> </td>
                                         <td>
                                             {% if s.unidad == '1' %}
                                             Pieza
@@ -112,9 +112,9 @@
                                         {% endfor %}
                                         </td>
                                         {% if s.recepcion__llegada == None  %}
-                                        <td>0</td>
+                                        <td><strong> 0</strong></td>
                                         {% else %}
-                                        <td>{{s.recepcion__llegada}}</td>
+                                        <td> <strong>{{s.recepcion__llegada}}</strong> </td>
                                         {% endif %}
                                        
                                         {% if s.recepcion__pendiente == None %}
@@ -124,15 +124,15 @@
                                         {% endif %}
 
                                         {% if s.recepcion__utilizado == None %}
-                                        <td>0</td>
+                                        <td><strong>0</strong></td>
                                         {% else %}
-                                        <td>{{s.recepcion__utilizado}}</td>
+                                        <td> <strong>{{s.recepcion__utilizado}}</strong></td>
                                         {% endif %}
 
                                         {% if s.recepcion__saldo == None %}
-                                        <td>0</td>
+                                        <td><strong>0</strong></td>
                                         {% else %}
-                                        <td>{{s.recepcion__saldo}}</td>
+                                        <td> <strong style="color:#110273;">{{s.recepcion__saldo}}</strong></td>
                                         {% endif %}
                                         <td>
                                             <a class="btn btn-sm" style="background-color:#34495E; color:white" href="{% url 'app:modificar_recepcion' s.id %}" >Modificar</a>

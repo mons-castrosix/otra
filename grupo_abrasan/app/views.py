@@ -367,16 +367,17 @@ def bodega_traspaso(request,id,bodega,bp):
                     print(p.cantidad)
                     p.save()
                     messages.success(request, "Producto Agregado Correctamente, tienes "+ str(p.cantidad)+" disponibles en Bodega")
-                    return redirect("/inventario/listar-producto-bodega/"+str(bodega)+"/")
+                    return redirect("/inventario/listar-producto-bodega/"+str(bodega.id)+"/")
             else:
                     print(formulario.errors)
-                    messages.error(request, "No se agrego traspaso producto, tienes "+str(p.cantidad)+" disponible en inventario")
-                    return redirect("/inventario/listar-producto-bodega/"+bodega+"/")
+                    messages.error(request, "No se agrego traspaso producto, tienes "+str(p.cantidad)+" disponible en Bodega")
+                    return redirect("/inventario/listar-producto-bodega/"+str(bodega.id)+"/")
     return render(request,'app/bodega/traspaso.html',data)
     
         
 @permission_required('app.view_bodegaproductos')
 def listar_productobodega(request,id):
+    
     queryset= request.GET.get("buscar")
     print(queryset)
     productos=BodegaProductos.objects.select_related('bodega','producto').filter(bodega=id).values('id','ubicacion','producto_id__id','producto_id__clave','producto_id__descripcion','producto_id__unidad','cantidad','minimo','bodega_id')
@@ -422,6 +423,9 @@ def modificar_productobodega(request,id,bodega,bp):
                 formulario.save()
                 messages.success(request, "Producto Agregado Correctamente, tienes "+ str(producto.disp)+" disponibles en inventario")
                 return redirect("/inventario/listar-producto-bodega/"+bodega+"/")
+            else:
+                messages.error(request, "Producto No modificado, tienes "+ str(producto.disp)+" disponibles en inventario")
+                return redirect("/inventario/listar-producto-bodega/"+bodega+"/")
        
     return render(request,'app/bodega/modificar-producto-bodega.html',data)
 
@@ -462,7 +466,7 @@ def villa_addproduct(request,id,bodega,bp):
                     x= p.cantidad - int(request.POST.get("cantidad"))
                     p.cantidad=x
                     p.save()
-                    messages.success(request, "Producto Agregado Correctamente, tienes "+ str(p.cantidad)+" disponibles en inventario")
+                    messages.success(request, "Producto Agregado Correctamente, tienes "+ str(p.cantidad)+" disponibles en bodega")
                     return redirect("/inventario/listar-producto-bodega/"+bodega+"/")
             else:
                     print(formulario.errors)
@@ -771,14 +775,17 @@ def recepcion_registro(request,solicitud):
     return render(request,'app/requisiciones/recepcion_registro.html',data)  
 @permission_required('app.view_solicitud')
 def requisiciones(request,solicitud):
-    solicitudes=Solicitud.objects.select_related('bodegaproducto','compra','recepcion').values('bodegaproducto_id','unidad','cantidad','solicitud','bodegaproducto_id__cantidad','descripcion','id','solicita','compra','recepcion__llegada','recepcion__pendiente','recepcion__utilizado','recepcion__saldo').filter(solicitud=solicitud)
+    solicitudes=Solicitud.objects.select_related('bodegaproducto','compra','recepcion').values('bodegaproducto_id','solicita','unidad','cantidad','solicitud','bodegaproducto_id__cantidad','descripcion','id','solicita','compra','recepcion__llegada','recepcion__pendiente','recepcion__utilizado','recepcion__saldo').filter(solicitud=solicitud)
     id=Solicitud.objects.select_related('bodegaproducto','compra','recepcion').values('id').filter(solicitud=solicitud)    
     compra=Compra.objects.select_related('solicitud').filter(solicitud_id__in=id).values() 
+    solicita=Solicitud.objects.select_related('obra').values('solicita','fecha','obra__nombre').filter(solicitud=solicitud).first()
+    print(solicita)
     data={
         'solicitudes':solicitudes,
         'form':RecepcionForm(),
         'compra':compra,
-        'solicitud':solicitud
+        'solicitud':solicitud,
+        'solicita':solicita,
     }
     
     return render(request,'app/requisiciones/ver-requisicion.html',data)  

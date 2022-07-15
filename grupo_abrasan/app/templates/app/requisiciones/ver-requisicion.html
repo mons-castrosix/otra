@@ -34,7 +34,7 @@
                   <div class="row">     
                     <div class="col-6">
                       <!--<h3 style="color:white">Productos en {{bodega.nombre}}</h3>-->
-                      <h3 style="color:white" id="sol">Recepción de Productos Solicitud <strong> {{solicitud}}</strong></h3>
+                      <h3 style="color:white" id="sol">Requisición Solicitud <strong> {{solicitud}}</strong></h3>
                     </div>
                     <div class="col-6">
                       <!--<a class="btn btn-sm float-right" style="background-color:#F20505; color:white;" href="{% url 'app:listar_inventario' %}">Agregar Producto de Inventario</a>-->
@@ -42,6 +42,11 @@
                     
                   </div>
               </div>
+
+              
+               
+                
+               
                 <div class="card-body">
                         <div class="container">
                             <div class="row mt-2">
@@ -51,6 +56,15 @@
                                 <div class="table-responsive">
                                 <table cellspacing="0" id="tabla" class="table table-hover">
                                     <thead>
+                                     
+                                     
+                                     
+                                     <tr> 
+                                      <th style="background-color:#110273; color:white;"><span>Solicita:</span> {{solicita.solicita}}</th>
+                                      <th style="background-color:#110273; color:white;"><span>Fecha: </span> {{solicita.fecha}}</th>
+                                      <th style="background-color:#110273; color:white;"><span>Obra:</span> {{solicita.obra__nombre}}</th>
+                                     </tr>
+                                      
                                     <tr>
                                         <th>Clave solicitud</th>
                                         <th>Producto</th>
@@ -69,7 +83,7 @@
                                     <tr>
                                         <td>{{s.id}}</td>
                                         <td>{{s.descripcion}}</td>
-                                        <td>{{s.bodegaproducto_id__cantidad}}</td>
+                                        <td><strong> {{s.bodegaproducto_id__cantidad}}</strong></td>
                                         <td>
                                           {% if s.unidad == '1' %}
                                           Pieza
@@ -99,17 +113,17 @@
 
 
                                       </td>
-                                        <td>{{s.cantidad}}</td>
+                                        <td><strong style="color:#F20505;"> {{s.cantidad}}</strong></td>
                                         {% for c in compra %}
                                             {% if s.id == c.solicitud_id %}
-                                            <td>{{c.compra}}</td>
+                                            <td><strong>{{c.compra}}</strong> </td>
                                             {% endif %}
                                         {% endfor %}
 
                                         {% if s.recepcion__llegada == None  %}
                                         <td>0</td>
                                         {% else %}
-                                        <td>{{s.recepcion__llegada}}</td>
+                                        <td><strong> {{s.recepcion__llegada}}</strong></td>
                                         {% endif %}
                                        
                                         {% if s.recepcion__pendiente == None %}
@@ -121,7 +135,7 @@
                                         {% if s.recepcion__utilizado == None %}
                                         <td>0</td>
                                         {% else %}
-                                        <td>{{s.recepcion__utilizado}}</td>
+                                        <td><strong> {{s.recepcion__utilizado}}</strong></td>
                                         {% endif %}
 
                                         {% if s.recepcion__saldo == None %}
