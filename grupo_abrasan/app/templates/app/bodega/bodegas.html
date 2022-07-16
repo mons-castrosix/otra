@@ -74,7 +74,7 @@
                               <td>{{b.encargado}}</td>
                               <td>{{b.obra.nombre}}</td>
                               <td>
-                                {% if perms.app.change_bodega %}
+                                {% if perms.app.delete_bodega %}
                                 <a class="btn btn-sm" style="background-color:#110273; color:white" href="{% url 'app:modificar_bodega' b.id %}" >Modificar</a>
                                 {% endif %}
                                 {% if perms.app.delete_bodega %}
