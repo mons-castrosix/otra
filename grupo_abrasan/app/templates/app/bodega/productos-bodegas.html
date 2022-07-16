@@ -117,7 +117,7 @@
                                       <a class="btn btn-sm" style="background-color:#110273; color:white" href="{% url 'app:modificar_prodcutobodega' bodega=bodega.id id=p.producto_id__id bp=p.id %}">Modificar</a>
                                       {% endif %}
                                       {% if perms.app.delete_bodegaproductos %}
-                                      <a class="btn btn-sm" style="background-color:#F20505; color:white" onclick="eliminarProductoBodega({{bodega.id}},{{p.producto_id__id}})">Eliminar</a>
+                                      <a class="btn btn-sm" style="background-color:#F20505; color:white" onclick="eliminarProductoBodega({{bodega.id}},{{p.id}})">Eliminar</a>
                                       {% endif %}
                                       {% if perms.app.change_bodegaproductos %}
                                       <a class="btn btn-sm" style="background-color:#34495E; color:white" href="{% url 'app:villa_addproduct' bodega=bodega.id id=p.producto_id__id bp=p.id%}" >Asignar a villa</a>

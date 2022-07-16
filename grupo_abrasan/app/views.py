@@ -431,11 +431,19 @@ def modificar_productobodega(request,id,bodega,bp):
 
 @permission_required('app.delete_bodegaproductos')
 def eliminar_productobodega(request,id,bodega):
-    productobodega=get_list_or_404(BodegaProductos,producto_id=id)
+    productobodega=get_list_or_404(BodegaProductos,id=id)
+    pb=BodegaProductos.objects.get(id=id) 
+    x=pb.producto_id
+    inv=Producto.objects.get(id=x)
+    
+    regresar=(inv.disp) + int(pb.cantidad)
+    inv.disp=regresar
+    inv.save()
+    
     for p in productobodega:
         p.delete()
     #productobodega.delete()
-    messages.success(request, "Eliminado correctamente")
+    messages.success(request, "Eliminado correctamente, ahora tienes"+" "+str(inv.disp)+"disponible en inventario")
     return redirect("/inventario/listar-producto-bodega/"+bodega+"/")
 #------------------- PRODUCTOS A VILLA ---------------------------
 @permission_required('app.add_insumos')
