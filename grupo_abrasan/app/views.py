@@ -586,6 +586,16 @@ def solicitudes(request):
         'solicitud':solicitud,
     }
     return render(request,'app/requisiciones/solicitudes.html',data)
+@permission_required('app.view_solicitud')
+def eliminar_prodsolicitud(request,id):
+    producto=get_list_or_404(Solicitud,id=id)
+    
+    for p in producto:
+        p.delete()
+    #productobodega.delete()
+    messages.success(request, "Eliminado correctamente")
+    return redirect("/inventario/solicitudes/")
+
 @permission_required('app.add_compra')
 def compra(request,solicitud):
     solicitudes=Solicitud.objects.filter(solicitud=solicitud)    

@@ -76,6 +76,7 @@
                                         <th>Pendiente</th>
                                         <th>Utilizado</th>
                                         <th>Saldo</th>
+                                        <th>Opciones</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -144,7 +145,11 @@
                                         <td>{{s.recepcion__saldo}}</td>
                                         {% endif %}
 
-
+                                      <td>
+                                        {% if perms.app.delete_solicitud %}
+                                        <a class="btn btn-sm" style="background-color:#F20505; color:white" href="{% url 'app:eliminarprod_solicitud' s.id %}" >Eliminar</a>
+                                        {% endif %}
+                                      </td>
                                         
                                         
                                         
